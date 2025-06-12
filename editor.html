@@ -18,11 +18,21 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
 
-  <!-- Firebase初期化 -->
-  <script src="firebase_init.js"></script>
-
-  <!-- データ更新スクリプト -->
+  <!-- あなたのfirebaseConfigをここに貼り付けてください -->
   <script>
+    const firebaseConfig = {
+      apiKey: "（あなたのAPIキー）",
+      authDomain: "scfcongestionobserver-1fd15.firebaseapp.com",
+      databaseURL: "https://scfcongestionobserver-1fd15-default-rtdb.firebaseio.com",
+      projectId: "scfcongestionobserver-1fd15",
+      storageBucket: "scfcongestionobserver-1fd15.appspot.com",
+      messagingSenderId: "（あなたのSenderID）",
+      appId: "（あなたのApp ID）"
+    };
+
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
     function updateCongestion() {
       const level = document.getElementById("congestionLevel").value;
       db.ref("congestion").set(level);
