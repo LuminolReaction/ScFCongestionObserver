@@ -1,22 +1,19 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// firebase_init.js
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Firebase 設定と初期化
 const firebaseConfig = {
   apiKey: "AIzaSyBeAn328E1zhdwikuEkEQNez_MHWXsTNDo",
   authDomain: "scfcongestionobserver-1fd15.firebaseapp.com",
   databaseURL: "https://scfcongestionobserver-1fd15-default-rtdb.firebaseio.com",
   projectId: "scfcongestionobserver-1fd15",
-  storageBucket: "scfcongestionobserver-1fd15.firebasestorage.app",
+  storageBucket: "scfcongestionobserver-1fd15.appspot.com",  // ← 修正あり
   messagingSenderId: "210845466082",
   appId: "1:210845466082:web:ef5f09a69732e0fcf10dbb",
   measurementId: "G-2Y41C3HN2D"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// Firebase App を初期化
+firebase.initializeApp(firebaseConfig);
+
+// 他のスクリプトで使うために db をグローバルに定義
+const db = firebase.database();
