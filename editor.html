@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>混雑度 編集ページ</title>
+</head>
+<body>
+  <h1>混雑度を設定</h1>
+
+  <select id="congestionLevel">
+    <option value="低">低</option>
+    <option value="中">中</option>
+    <option value="高">高</option>
+  </select>
+  <button onclick="updateCongestion()">更新</button>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
+
+  <!-- Firebase初期化 -->
+  <script src="firebase_init.js"></script>
+
+  <!-- データ更新スクリプト -->
+  <script>
+    function updateCongestion() {
+      const level = document.getElementById("congestionLevel").value;
+      db.ref("congestion").set(level);
+      alert("混雑度を「" + level + "」に更新しました！");
+    }
+  </script>
+</body>
+</html>
