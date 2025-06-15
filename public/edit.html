@@ -1,0 +1,40 @@
+<!-- edit.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>編集ページ</title>
+</head>
+<body>
+  <h2>混雑度を入力</h2>
+  <input type="text" id="congestion" placeholder="低 / 中 / 高" />
+  <button onclick="saveData()">保存</button>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyBVAhpoYFfVtv5yRMI5lBHOMA6ojBcDRvY",
+        authDomain: "scfcongestionobserver-b0934.firebaseapp.com",
+        projectId: "scfcongestionobserver-b0934",
+        storageBucket: "scfcongestionobserver-b0934.firebasestorage.app",
+        messagingSenderId: "452734802512",
+        appId: "1:452734802512:web:db9df34c5e2179796c8f55",
+        measurementId: "G-YHPYK887YE"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function saveData() {
+      const congestion = document.getElementById("congestion").value;
+      await setDoc(doc(db, "places", "current"), {
+        congestion: congestion,
+        updatedAt: serverTimestamp()
+      });
+      alert("保存しました！");
+    }
+  </script>
+</body>
+</html>
