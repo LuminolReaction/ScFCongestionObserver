@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>混雑度編集ページ</title>
+</head>
+<body>
+  <h1>混雑度を編集</h1>
+
+  <label for="levelSelect">混雑度を選んでください：</label>
+  <select id="levelSelect">
+    <option value="低">低</option>
+    <option value="中">中</option>
+    <option value="高">高</option>
+  </select>
+  <button id="submitBtn">送信</button>
+
+  <p id="statusMessage"></p>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+    // Firebase設定（あなたのものを使用）
+    const firebaseConfig = {
+      apiKey: "AIzaSyBVAhpoYFfVtv5yRMI5lBHOMA6ojBcDRvY",
+      authDomain: "scfcongestionobserver-b0934.firebaseapp.com",
+      projectId: "scfcongestionobserver-b0934",
+      storageBucket: "scfcongestionobserver-b0934.appspot.com",
+      messagingSenderId: "452734802512",
+      appId: "1:452734802512:web:db9df34c5e2179796c8f55",
+      measurementId: "G-YHPYK887YE"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    document.getElementById("submitBtn").addEventListener("click", async () => {
+      const selectedLevel = document.getElementById("levelSelect").value;
+      const docRef = doc(db, "status", "current");
+
+      try {
+        await setDoc(docRef, { level: selectedLevel });
+        document.getElementById("statusMessage").textContent = "更新に成功しました 🎉";
+      } catch (error) {
+        document.getElementById("statusMessage").textContent = "エラーが発生しました: " + error;
+      }
+    });
+  </script>
+</body>
+</html>
