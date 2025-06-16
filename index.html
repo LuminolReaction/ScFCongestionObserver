@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>表示ページ</title>
+</head>
+<body>
+  <h1>現在の混雑度：</h1>
+  <p id="congestion">読み込み中...</p>
+
+  <!-- Firebase SDK & Firestore -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+    // Firebase 設定
+    const firebaseConfig = {
+      apiKey: "AIzaSyBVAhpoYFfVtv5yRMI5lBHOMA6ojBcDRvY",
+      authDomain: "scfcongestionobserver-b0934.firebaseapp.com",
+      projectId: "scfcongestionobserver-b0934",
+      storageBucket: "scfcongestionobserver-b0934.appspot.com", // ← app → appspot に修正
+      messagingSenderId: "452734802512",
+      appId: "1:452734802512:web:db9df34c5e2179796c8f55",
+      measurementId: "G-YHPYK887YE"
+    };
+
+    // 初期化
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // ドキュメントを取得（例: "status/current"）
+    const docRef = doc(db, "status", "current");
+
+    getDoc(docRef).then((docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        document.getElementById("congestion").textContent = data.level ?? "不明";
+      } else {
+        document.getElementById("congestion").textContent = "データが存在しません";
+      }
+    }).catch((error) => {
+      document.getElementById("congestion").textContent = "エラー: " + error;
+    });
+  </script>
+</body>
+</html>
